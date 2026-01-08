@@ -1,0 +1,76 @@
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 6rem 2rem;
+}
+
+.title {
+  font-size: 3.5rem;
+  font-family: var(--font-outfit);
+  font-weight: 700;
+  margin-bottom: 2rem;
+  color: var(--text-primary);
+}
+
+.intro {
+  font-size: 1.5rem;
+  color: var(--text-primary); /* Darker for intro */
+  line-height: 1.5;
+  margin-bottom: 4rem;
+  font-weight: 400;
+}
+
+.section {
+  margin-bottom: 5rem;
+}
+
+.label {
+  text-transform: uppercase;
+  font-size: 0.875rem;
+  letter-spacing: 0.15em;
+  color: var(--accent);
+  margin-bottom: 1.5rem;
+  font-weight: 600;
+  display: block;
+}
+
+.text {
+  font-size: 1.125rem;
+  color: var(--text-secondary);
+  line-height: 1.8;
+  margin-bottom: 1.5rem;
+}
+
+/* Skills Grid */
+.skillsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+  margin-top: 1rem;
+}
+
+.skillCategory h3 {
+  font-size: 1rem;
+  color: var(--text-primary);
+  margin-bottom: 0.75rem;
+}
+
+.skillList {
+  list-style: none;
+  color: var(--text-secondary);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+  .title {
+    font-size: 2.5rem;
+  }
+  .intro {
+    font-size: 1.25rem;
+  }
+  .skillsGrid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+}

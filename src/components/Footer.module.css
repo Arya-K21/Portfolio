@@ -1,0 +1,74 @@
+.footer {
+  padding: 4rem 2rem;
+  border-top: 1px solid var(--border-subtle);
+  background: var(--bg-primary);
+  margin-top: auto;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 2rem;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.title {
+  font-family: var(--font-outfit);
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.subtitle {
+  color: var(--text-secondary);
+  font-size: 1.125rem;
+}
+
+.email {
+  font-size: 1.5rem;
+  color: var(--text-primary);
+  font-weight: 500;
+  text-decoration: none;
+  border-bottom: 2px solid transparent;
+  transition: border-color 0.2s ease, opacity 0.2s ease;
+}
+
+.email:hover {
+  border-color: var(--accent);
+  opacity: 0.8;
+}
+
+.socials {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.link {
+  color: var(--text-secondary);
+  font-size: 1rem;
+  text-decoration: none;
+  transition: color 0.2s ease;
+  font-weight: 500;
+}
+
+.link:hover {
+  color: var(--accent);
+}
+
+.copyright {
+  margin-top: 2rem;
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+  opacity: 0.6;
+}
