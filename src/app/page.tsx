@@ -3,78 +3,75 @@ import styles from "./page.module.css";
 import projectStyles from "./projects/projects.module.css";
 import { projects } from "./projects/data";
 
-// This is the main Home Page component.
-// It serves as the landing area with a strong Hero section.
 export default function Home() {
+  // Select top 1 project for home page
+  const featuredProjects = projects.slice(0, 1);
+
   return (
-    // The main container for the hero section
     <>
-    <section className={styles.hero}>
-      
-      {/* 
-        Introduction / Name Label 
-        "fade-in" class triggers the enter animation defined in globals.css
-      */}
-      <span className={`${styles.name} fade-in`}>Arya Kulkarni</span>
-      
-      {/* 
-        Main Headline / Role 
-        Uses <br /> to force a line break for better visual balance on desktop
-      */}
-      <h1 className={`${styles.title} fade-in delay-1`}>
-        UI/UX Designer & <br /> Frontend Developer
-      </h1>
-      
-      {/* 
-        Positioning Statement 
-        Keep this short (2 lines max) to maintain the clean aesthetic.
-      */}
-      <p className={`${styles.description} fade-in delay-2`}>
-        Crafting digital products that feel calm, premium, and human.
-        Bridging the gap between design and engineering to build exploration-focused experiences.
-      </p>
-      
-      {/* Call to Action Buttons */}
-      <div className={`${styles.actions} fade-in delay-3`}>
-        <Link href="/projects" className={styles.primaryBtn}>
-          View Projects
-        </Link>
-        <Link href="/contact" className={styles.secondaryBtn}>
-          Get in Touch
-        </Link>
-      </div>
-    </section>
+      {/* 1. LANDING HERO */}
+      <section className={styles.hero}>
+        <span className={`${styles.name} fade-in`}>Arya Kulkarni</span>
+        <h1 className={`${styles.title} fade-in delay-1`}>
+          Creating digital experiences <br /> that bridge utility & emotion.
+        </h1>
+        <p className={`${styles.description} fade-in delay-2`}>
+          UI/UX Designer & Frontend Developer driven by clarity and craft.
+        </p>
+      </section>
 
-    {/* Selected Projects Section */}
-    <section className={projectStyles.container} style={{ paddingTop: '0' }}>
-      <div className={`${projectStyles.header} fade-in`} style={{ textAlign: 'left', marginBottom: '3rem' }}>
-        <h2 className={projectStyles.title}>Selected Work</h2>
-      </div>
+      {/* 2. ABOUT INFO */}
+      <section className={`${styles.aboutSection} fade-in`}>
+        <span className={styles.sectionLabel}>The Philosophy</span>
+        <p className={styles.aboutText}>
+          I believe software should be quiet, capable, and kind. 
+          <br /><br />
+          My work sits at the intersection of <span className={styles.aboutHighlight}>design systems</span> and <span className={styles.aboutHighlight}>frontend engineering</span>, ensuring that every pixel is intentional and every interaction feels physically responsive.
+        </p>
+      </section>
 
-      <div className={projectStyles.grid}>
-        {projects.map((project, index) => (
-          <Link 
-            href={`/projects/${project.slug}`} 
-            key={project.id}
-            className={`${projectStyles.card} fade-in`}
-            style={{ animationDelay: `${(index + 1) * 0.1}s` } as React.CSSProperties}
-          >
-            <div className={projectStyles.preview} style={{ background: project.gradient }}>
+      {/* 3. SELECTED WORK */}
+      <section style={{ paddingBottom: '6rem' }}>
+        {/* Custom Header Layout */}
+        <div className={styles.workHeader}>
+          
+          {/* Grid Content (Now First/Left) */}
+          <div>
+            <div className={styles.projectGrid}>
+              {featuredProjects.map((project, index) => (
+                <Link 
+                  href={`/projects/${project.slug}`} 
+                  key={project.id}
+                  className={`${styles.projectCard} fade-in`}
+                  style={{ animationDelay: `${index * 0.15}s` } as React.CSSProperties}
+                >
+                  <div className={styles.projectPreview} style={{ background: project.gradient }}>
+                  </div>
+                  
+                  <div className={styles.projectInfo}>
+                    <h2 className={styles.projectTitle}>{project.title}</h2>
+                    <p className={styles.projectDesc}>{project.description}</p>
+                    
+                    <div className={styles.projectMeta}>
+                      <span>{project.role}</span>
+                      <span>&rarr;</span>
+                    </div>
+                  </div>
+                </Link>
+              ))}
             </div>
-            
-            <div className={projectStyles.content}>
-              <h2 className={projectStyles.projectTitle}>{project.title}</h2>
-              <p className={projectStyles.projectDesc}>{project.description}</p>
-              
-              <div className={projectStyles.footer}>
-                <span className={projectStyles.role}>{project.role}</span>
-                <span className={projectStyles.linkText}>View Case Study &rarr;</span>
-              </div>
-            </div>
+          </div>
+
+          {/* Right Arrow Link */}
+          <Link href="/projects" className={styles.sideLink}>
+            <div className={styles.arrowCircle}>&rarr;</div>
+            <span className={styles.labelLink}>All Projects</span>
           </Link>
-        ))}
-      </div>
-    </section>
+
+        </div>
+      </section>
+
+      {/* Footer is handled by RootLayout */}
     </>
   );
 }

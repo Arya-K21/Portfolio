@@ -1,123 +1,257 @@
+/* Full Screen Overlay to Hide Footer */
 .container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 4rem 2rem;
+  position: fixed;
+  inset: 0; /* Covers entire viewport */
+  z-index: 50; /* On top of global layout */
+  background: var(--bg-primary);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
 }
 
-.header {
-  margin-bottom: 4rem;
-  text-align: center;
+/* Dynamic Background Layer */
+.backgroundLayer {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  opacity: 0.15;
+  transition: background 1.5s ease;
+  filter: blur(80px); /* Soft diffuse glow */
 }
 
-.title {
-  font-size: 3rem; /* Larger, premium header */
+.pageTitle {
+  position: absolute;
+  top: 6rem;
+  left: 0;
+  right: 0;
+  font-size: 1rem;
   font-family: var(--font-outfit);
-  margin-bottom: 0.5rem;
-  color: var(--text-primary);
-}
-
-.subtitle {
   color: var(--text-secondary);
-  font-size: 1.125rem;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  z-index: 20;
 }
 
-.grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr); /* Default 3 columns for "Catalog" feel */
-  gap: 2.5rem;
-}
-
-@media (max-width: 1024px) {
-  .grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (max-width: 768px) {
-  .grid {
-    grid-template-columns: 1fr;
-  }
+.stackWrapper {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  perspective: 1200px; /* Stronger perspective */
+  z-index: 10;
 }
 
 .card {
-  background: var(--bg-primary);
-  border: 1px solid var(--border-subtle);
-  border-radius: 16px; /* Soft rounding */
+  position: absolute;
+  width: 70vw; /* Responsive width */
+  max-width: 1000px;
+  max-height: 60vh;
+  aspect-ratio: 16 / 9;
+  background: #0F0F0F;
+  border-radius: 24px;
   overflow: hidden;
-  transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.4s ease;
-  cursor: pointer;
+  box-shadow: 0 40px 100px -20px rgba(0, 0, 0, 0.5);
+  
+  /* Smooth Cinematic Transition */
+  transition: 
+    transform 1s cubic-bezier(0.2, 0.8, 0.2, 1),
+    opacity 1s ease,
+    filter 1s ease;
+    
+  will-change: transform, opacity, filter;
+  transform-style: preserve-3d;
+}
+
+/* --- 3D STATES --- */
+
+/* 1. PAST: Slides out to the Left */
+.past {
+  transform: translate3d(-120%, 0, 0) rotateY(10deg);
+  opacity: 0;
+  filter: blur(10px);
+  pointer-events: none;
+}
+
+/* 2. ACTIVE: Center Stage */
+.active {
+  transform: translate3d(0, 0, 0);
+  opacity: 1;
+  filter: blur(0px);
+  z-index: 10;
+  pointer-events: auto;
+}
+
+/* 3. UPCOMING (Next): Right and Deep */
+.upcoming {
+  /* Only target the immediate next one for visibility */
+  transform: translate3d(50%, 0, -400px); /* Right and Back */
+  opacity: 0.0; /* Start invisible, JS handles specificity if needed, but CSS handles generic */
+  pointer-events: none;
+}
+
+/* Specific handling for the immediate next card (offset 1) */
+.upcoming[style*="--offset: 1"] {
+  transform: translate3d(60%, 0, -300px);
+  opacity: 0.6;
+  filter: blur(6px);
+  z-index: 5;
+  display: block;
+}
+
+/* Hide further cards */
+.upcoming[style*="--offset: 2"],
+.upcoming[style*="--offset: 3"] {
+  opacity: 0;
+  pointer-events: none;
+}
+
+
+/* Layout Content */
+.cardInner {
   display: flex;
-  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  text-decoration: none;
+  color: inherit;
+}
+
+.cardPreview {
+  flex: 1.5;
   height: 100%;
   position: relative;
+  transition: filter 0.5s ease;
 }
 
-.card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
-}
-
-.preview {
-  height: 260px;
-  width: 100%;
-  /* Gradient or Image container */
-  position: relative;
-  transition: transform 0.4s ease;
-}
-
-.card:hover .preview {
-  transform: scale(1.02); /* Subtle zoom on image */
-}
-
-.content {
-  padding: 2rem;
-  flex-grow: 1;
+.cardContent {
+  flex: 1;
+  padding: 4rem;
   display: flex;
   flex-direction: column;
-  background: var(--bg-primary);
-  z-index: 1; /* Ensure on top */
+  justify-content: center;
+  background: rgba(20, 20, 20, 0.6);
+  backdrop-filter: blur(20px);
+}
+
+.cardMeta {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
 }
 
 .projectTitle {
-  font-size: 1.5rem;
-  font-weight: 600;
-  margin-bottom: 0.75rem;
-  color: var(--text-primary);
+  font-size: 3rem;
   font-family: var(--font-outfit);
+  color: var(--text-primary);
+  margin-bottom: 1rem;
+  line-height: 1.1;
 }
 
 .projectDesc {
-  font-size: 1rem;
-  color: var(--text-secondary);
+  font-size: 1.1rem;
   line-height: 1.6;
-  margin-bottom: auto; /* Pushes footer down */
-}
-
-.footer {
-  margin-top: 1.5rem;
-  padding-top: 1.5rem;
-  border-top: 1px solid var(--border-subtle);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.role {
-  font-size: 0.875rem;
   color: var(--text-secondary);
-  font-weight: 500;
+  margin-bottom: 2rem;
+  max-width: 90%;
 }
 
-.linkText {
-  font-size: 0.875rem;
-  color: var(--accent);
-  font-weight: 600;
+.cardAction {
+  margin-top: auto;
+  font-weight: 500;
+  color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.1);
+  padding: 0.8rem 1.5rem;
+  border-radius: 100px;
+  width: fit-content;
+  font-size: 0.9rem;
+  transition: background 0.3s ease;
+}
+
+.active .cardAction:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* Controls - Bottom Pill */
+.controls {
+  position: absolute;
+  bottom: 3rem;
+  left: 50%;
+  transform: translateX(-50%);
   display: flex;
   align-items: center;
-  gap: 0.25rem;
-  transition: gap 0.2s ease;
+  gap: 1.5rem;
+  z-index: 30;
 }
 
-.card:hover .linkText {
-  gap: 0.5rem; /* Arrow moves slightly */
+.navBtn {
+  background: #fff; /* White pill */
+  color: #000;
+  border: none;
+  padding: 0.8rem 2rem;
+  border-radius: 100px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  font-family: var(--font-outfit);
+}
+
+.navBtn:disabled {
+  opacity: 0.5;
+  cursor: allowed; /* Let them try */
+  background: #333;
+  color: #888;
+}
+
+.navBtn:hover:not(:disabled) {
+  transform: scale(1.05);
+  box-shadow: 0 8px 30px rgba(255, 255, 255, 0.3);
+}
+
+/* Secondary nav button (Prev) can be smaller/different */
+.navBtn.prev {
+  padding: 0.8rem;
+  width: 50px;
+  height: 50px;
+  justify-content: center;
+}
+
+.pagination {
+  display: none; /* Clean look */
+}
+
+@media (max-width: 768px) {
+  .card {
+    width: 90%;
+    flex-direction: column;
+    max-height: 70vh;
+  }
+  
+  .cardInner {
+    flex-direction: column;
+  }
+  
+  .cardContent {
+    padding: 1.5rem;
+  }
+  
+  .projectTitle {
+    font-size: 2rem;
+  }
+  
+  .upcoming[style*="--offset: 1"] {
+    transform: translate3d(20%, 0, -200px); /* Less shift on mobile */
+  }
 }

@@ -27,32 +27,30 @@ export default function About() {
       </section>
       
       {/* Skills Section */}
+      {/* Skills Section */}
       <section className={`${styles.section} fade-in delay-2`}>
         <span className={styles.label}>Toolkit & Skills</span>
-        <div className={styles.skillsGrid}>
-           {/* Design Skills */}
-           <div className={styles.skillCategory}>
-             <h3>Design</h3>
-             <ul className={styles.skillList}>
-               <li>User Interface (UI) System Design</li>
-               <li>User Experience (UX) Strategy</li>
-               <li>Wireframing & Prototyping</li>
-               <li>Interaction Design</li>
-               <li>Figma, Adobe CC, Spline</li>
-             </ul>
-           </div>
-           
-           {/* Engineering Skills */}
-           <div className={styles.skillCategory}>
-             <h3>Development</h3>
-             <ul className={styles.skillList}>
-               <li>Frontend Engineering (React, Next.js)</li>
-               <li>TypeScript & Modern JavaScript</li>
-               <li>CSS Architecture (Modules, Tailwind)</li>
-               <li>Micro-Interactions & Animation</li>
-               <li>Performance Optimization</li>
-             </ul>
-           </div>
+        
+        <div className={styles.techStackSection}>
+          {/* Design Stack */}
+          <div className={styles.techCategory}>
+            <h3 className={styles.techHeading}>Design</h3>
+            <div className={styles.pillContainer}>
+              {["Figma", "Adobe CC", "Spline 3D", "Prototyping", "Design Systems", "User Research"].map((skill) => (
+                <span key={skill} className={styles.techPill}>{skill}</span>
+              ))}
+            </div>
+          </div>
+
+          {/* Development Stack */}
+          <div className={styles.techCategory}>
+            <h3 className={styles.techHeading}>Development</h3>
+            <div className={styles.pillContainer}>
+              {["React", "Next.js", "TypeScript", "Tailwind CSS", "Node.js", "Framer Motion", "Git/GitHub"].map((skill) => (
+                <span key={skill} className={styles.techPill}>{skill}</span>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
     </div>

@@ -42,24 +42,51 @@
 }
 
 /* Skills Grid */
-.skillsGrid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 2rem;
-  margin-top: 1rem;
+/* Tech Stack Section */
+.techStackSection {
+  margin-top: 4rem;
 }
 
-.skillCategory h3 {
-  font-size: 1rem;
-  color: var(--text-primary);
-  margin-bottom: 0.75rem;
+.techCategory {
+  margin-bottom: 3rem;
 }
 
-.skillList {
-  list-style: none;
+.techHeading {
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
   color: var(--text-secondary);
-  font-size: 1rem;
-  line-height: 1.6;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  display: block;
+}
+
+.pillContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.techPill {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  border-radius: 100px;
+  border: 1px solid var(--border-subtle);
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  cursor: default;
+}
+
+.techPill:hover {
+  border-color: var(--accent);
+  color: var(--text-primary);
+  background: rgba(var(--accent-rgb, 59, 130, 246), 0.1); /* Fallback or variable */
+  box-shadow: 0 0 15px rgba(59, 130, 246, 0.3); /* Glow effect */
+  transform: translateY(-1px);
 }
 
 @media (max-width: 768px) {
@@ -68,9 +95,5 @@
   }
   .intro {
     font-size: 1.25rem;
-  }
-  .skillsGrid {
-    grid-template-columns: 1fr;
-    gap: 2rem;
   }
 }

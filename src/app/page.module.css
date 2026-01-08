@@ -2,95 +2,212 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: flex-start;
-  min-height: calc(100vh - 80px); /* Adjust for navbar */
+  align-items: center; /* Centered Hero */
+  height: 100vh;
   padding: 0 4rem;
   max-width: 1200px;
   margin: 0 auto;
+  text-align: center;
+  position: relative;
 }
 
 .name {
   font-family: var(--font-outfit);
-  font-size: var(--font-size-small);
+  font-size: 1rem;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.2em;
   color: var(--accent);
-  margin-bottom: var(--spacing-sm);
+  margin-bottom: 1.5rem;
   font-weight: 600;
+  opacity: 0.8;
 }
 
 .title {
-  font-size: var(--font-size-hero);
+  font-size: clamp(3rem, 6vw, 5rem);
   line-height: 1.1;
   font-weight: 700;
   color: var(--text-primary);
-  margin-bottom: var(--spacing-md);
-  max-width: 800px;
-}
-
-.title span {
-  color: var(--text-secondary); /* Styling variation */
+  margin-bottom: 2rem;
+  max-width: 900px;
 }
 
 .description {
-  font-size: var(--font-size-h3);
+  font-size: 1.25rem;
   color: var(--text-secondary);
   max-width: 600px;
-  margin-bottom: var(--spacing-lg);
+  margin-bottom: 0;
+  font-weight: 400;
+  line-height: 1.6;
+}
+
+/* Scroll Indiactor or similar could go here if requested, but minimal is better */
+
+/* ABOUT SECTION */
+.aboutSection {
+  padding: 8rem 2rem;
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.sectionLabel {
+  display: block;
+  font-family: var(--font-outfit);
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-secondary);
+  margin-bottom: 2rem;
+}
+
+.aboutText {
+  font-size: 1.5rem;
+  line-height: 1.6;
+  color: var(--text-primary);
   font-weight: 400;
 }
 
-.actions {
+.aboutHighlight {
+  color: var(--accent);
+}
+
+/* WORK SECTION HEADER */
+/* The user wants an arrow on the left side pointing to projects */
+/* WORK SECTION HEADER */
+.workHeader {
+  display: grid;
+  grid-template-columns: 1fr 140px; /* Content | Sidebar (Right) */
+  gap: 4rem;
+  padding: 0 4rem;
+  max-width: 1400px;
+  margin: 0 auto 4rem;
+  align-items: start;
+}
+
+.sideLink {
   display: flex;
-  gap: var(--spacing-md);
+  flex-direction: column;
+  align-items: center; /* Center align for the column */
+  gap: 1rem;
+  text-decoration: none;
+  position: sticky;
+  top: 100px;
+  text-align: center;
 }
 
-.primaryBtn {
-  display: inline-flex;
-  align-items: center;
-  padding: 1rem 2rem;
-  background-color: var(--text-primary);
-  color: var(--bg-primary);
-  font-weight: 600;
-  border-radius: 4px; /* Slightly rounded */
-  transition: transform 0.2s ease, background-color 0.2s ease;
-}
-
-.primaryBtn:hover {
-  background-color: var(--accent);
-  transform: translateY(-2px);
-  color: white;
-  opacity: 1;
-}
-
-.secondaryBtn {
-  display: inline-flex;
-  align-items: center;
-  padding: 1rem 2rem;
-  background-color: transparent;
-  color: var(--text-primary);
-  font-weight: 600;
+.arrowCircle {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
   border: 1px solid var(--border-subtle);
-  border-radius: 4px;
-  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-primary);
+  font-size: 1.25rem;
+  transition: all 0.3s ease;
 }
 
-.secondaryBtn:hover {
-  border-color: var(--text-primary);
-  background-color: var(--bg-secondary);
-  opacity: 1;
+.labelLink {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-secondary);
+  font-weight: 600;
+}
+
+.sideLink:hover .arrowCircle {
+  background: var(--text-primary);
+  color: var(--bg-primary);
+  transform: translateX(5px); /* Move right */
+}
+
+/* HOME PROJECT GRID */
+.projectGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+}
+
+.projectCard {
+  display: block;
+  text-decoration: none;
+  border-radius: 16px;
+  overflow: hidden;
+  transition: transform 0.4s ease, opacity 0.4s ease;
+  /* Smaller Frame Logic */
+  max-width: 900px; /* Constrain width */
+  margin-right: auto; /* Align left since sidebar is on right */
+}
+
+.projectCard:hover {
+  transform: scale(1.02);
+}
+
+.projectPreview {
+  width: 100%;
+  height: 280px; /* Reduced height */
+  background-size: cover;
+  background-position: center;
+  border-radius: 16px;
+  margin-bottom: 1.5rem;
+}
+
+.projectInfo {
+  padding: 0 0.5rem;
+}
+
+.projectTitle {
+  font-size: 1.5rem; /* Smaller title */
+  font-family: var(--font-outfit);
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+}
+
+.projectDesc {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  max-width: 600px;
+  line-height: 1.5;
+  margin-bottom: 1rem;
+}
+
+.projectMeta {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  display: flex;
+  gap: 1rem;
+}
+
+/* RESPONSIVE */
+@media (max-width: 1024px) {
+  .workHeader {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    padding: 0 2rem;
+  }
+  
+  .sideLink {
+    flex-direction: row;
+    align-items: center;
+    position: static;
+    margin-top: 2rem;
+    justify-content: flex-start;
+  }
+
+  .sideLink:hover .arrowCircle {
+    transform: translateX(5px);
+  }
+  
+  .projectCard {
+    max-width: 100%;
+  }
 }
 
 @media (max-width: 768px) {
   .hero {
     padding: 0 1.5rem;
-    text-align: center;
-    align-items: center;
-  }
-  .title {
-    font-size: 3rem;
-  }
-  .description {
-    font-size: 1.25rem;
   }
 }
