@@ -7,6 +7,8 @@ export interface Project {
     role: string;
     gradient: string; // For the preview card background if no image
     categories: string[];
+    techStack: string[];
+    githubUrl?: string; // Optional if some projects are private
 }
 
 export const projects: Project[] = [
@@ -19,6 +21,8 @@ export const projects: Project[] = [
         role: "Lead Designer",
         gradient: "linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%)",
         categories: ["Product Design", "Fintech"],
+        techStack: ["Next.js", "TypeScript", "Tailwind"],
+        githubUrl: "https://github.com/Arya-K21",
     },
     {
         id: "2",
@@ -29,6 +33,8 @@ export const projects: Project[] = [
         role: "UX/UI Designer",
         gradient: "linear-gradient(135deg, #fefce8 0%, #fef08a 100%)",
         categories: ["Mobile App", "Travel"],
+        techStack: ["React Native", "Expo", "Reanimated"],
+        githubUrl: "https://github.com/Arya-K21",
     },
     {
         id: "3",
@@ -39,6 +45,8 @@ export const projects: Project[] = [
         role: "Frontend Developer",
         gradient: "linear-gradient(135deg, #f0fdf4 0%, #bbf7d0 100%)",
         categories: ["Web App", "Health"],
+        techStack: ["Vue.js", "Pinia", "Chart.js"],
+        githubUrl: "https://github.com/Arya-K21",
     },
     {
         id: "4",
@@ -49,6 +57,8 @@ export const projects: Project[] = [
         role: "UX Researcher",
         gradient: "linear-gradient(135deg, #f5f3ff 0%, #ddd6fe 100%)",
         categories: ["IoT", "User Research"],
+        techStack: ["React", "Socket.io", "Node.js"],
+        githubUrl: "https://github.com/Arya-K21",
     },
     {
         id: "5",
@@ -59,5 +69,7 @@ export const projects: Project[] = [
         role: "UI Designer",
         gradient: "linear-gradient(135deg, #fff1f2 0%, #fecdd3 100%)",
         categories: ["E-Commerce", "Branding"],
+        techStack: ["Shopify", "Liquid", "SASS"],
+        githubUrl: "https://github.com/Arya-K21",
     },
 ];

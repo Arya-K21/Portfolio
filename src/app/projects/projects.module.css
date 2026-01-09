@@ -48,9 +48,9 @@
 
 .card {
   position: absolute;
-  width: 70vw; /* Responsive width */
-  max-width: 1000px;
-  max-height: 60vh;
+  width: 60vw; /* Reduced from 70vw */
+  max-width: 850px; /* Reduced from 1000px */
+  max-height: 50vh; /* Reduced from 60vh */
   aspect-ratio: 16 / 9;
   background: #0F0F0F;
   border-radius: 24px;
@@ -96,9 +96,9 @@
 
 /* Specific handling for the immediate next card (offset 1) */
 .upcoming[style*="--offset: 1"] {
-  transform: translate3d(60%, 0, -300px);
-  opacity: 0.6;
-  filter: blur(6px);
+  transform: translate3d(20%, 0, -200px); /* Minimal offset, but hidden */
+  opacity: 0; /* Hidden as per request "only 1 frame visible" */
+  filter: blur(10px);
   z-index: 5;
   display: block;
 }
@@ -125,6 +125,85 @@
   height: 100%;
   position: relative;
   transition: filter 0.5s ease;
+  overflow: hidden; /* Ensure overlay stays inside */
+}
+
+/* Hover Overlay Styles (Matches Home Page) */
+.projectOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7); /* Dark overlay */
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 1.5rem;
+  backdrop-filter: blur(4px);
+  z-index: 5;
+}
+
+.card:hover .projectOverlay {
+  opacity: 1;
+}
+
+.overlayContent {
+  transform: translateY(20px);
+  transition: transform 0.3s ease;
+}
+
+.card:hover .overlayContent {
+  transform: translateY(0);
+}
+
+.overlayTitle {
+  color: #fff;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  font-family: var(--font-outfit);
+}
+
+.techStack {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+
+.techTag {
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  font-size: 0.75rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: 100px;
+  backdrop-filter: blur(4px);
+}
+
+.githubLink {
+  color: #fff;
+  font-size: 1.5rem;
+  opacity: 0.8;
+  transition: opacity 0.2s, transform 0.2s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.1);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.githubLink:hover {
+  opacity: 1;
+  transform: scale(1.1);
+  background: rgba(255, 255, 255, 0.2);
 }
 
 .cardContent {

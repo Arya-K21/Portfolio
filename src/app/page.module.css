@@ -57,7 +57,16 @@
   text-transform: uppercase;
   letter-spacing: 0.1em;
   color: var(--text-secondary);
+  color: var(--text-secondary);
   margin-bottom: 2rem;
+}
+
+.connectiveLine {
+  width: 1px;
+  height: 100px; /* Length of the connector */
+  background: var(--border-subtle);
+  margin: 2rem auto; /* Centered visually between sections */
+  display: block;
 }
 
 .aboutText {
@@ -75,24 +84,24 @@
 /* The user wants an arrow on the left side pointing to projects */
 /* WORK SECTION HEADER */
 .workHeader {
-  display: grid;
-  grid-template-columns: 1fr 140px; /* Content | Sidebar (Right) */
-  gap: 4rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem; /* Even closer gap */
   padding: 0 4rem;
   max-width: 1400px;
   margin: 0 auto 4rem;
-  align-items: start;
 }
 
 .sideLink {
   display: flex;
   flex-direction: column;
-  align-items: center; /* Center align for the column */
+  align-items: center;
   gap: 1rem;
   text-decoration: none;
-  position: sticky;
-  top: 100px;
   text-align: center;
+  flex-shrink: 0;
 }
 
 .arrowCircle {
@@ -124,20 +133,21 @@
 
 /* HOME PROJECT GRID */
 .projectGrid {
+  /* projectGrid is now just a container */
+  width: 100%;
   display: flex;
-  flex-direction: column;
-  gap: 4rem;
+  justify-content: center;
 }
 
 .projectCard {
-  display: block;
+  display: flex;
+  align-items: center; /* Vertically center image and text */
+  gap: 2.5rem; /* Space between image and text */
   text-decoration: none;
   border-radius: 16px;
-  overflow: hidden;
   transition: transform 0.4s ease, opacity 0.4s ease;
-  /* Smaller Frame Logic */
-  max-width: 900px; /* Constrain width */
-  margin-right: auto; /* Align left since sidebar is on right */
+  width: 100%;
+  max-width: 1100px; /* Increased width for larger image + text */
 }
 
 .projectCard:hover {
@@ -145,16 +155,98 @@
 }
 
 .projectPreview {
-  width: 100%;
-  height: 280px; /* Reduced height */
+  width: 400px; /* Increased size back up */
+  height: 400px; /* Square */
+  flex-shrink: 0;
   background-size: cover;
   background-position: center;
   border-radius: 16px;
-  margin-bottom: 1.5rem;
+  margin-bottom: 0; /* No margin needed for row layout */
+  position: relative;
+  overflow: hidden;
+}
+
+/* Hover Overlay Styles */
+.projectOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7); /* Dark overlay for contrast */
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 1.5rem;
+  backdrop-filter: blur(4px); /* Premium feel */
+}
+
+.projectCard:hover .projectOverlay {
+  opacity: 1;
+}
+
+.overlayContent {
+  transform: translateY(20px);
+  transition: transform 0.3s ease;
+}
+
+.projectCard:hover .overlayContent {
+  transform: translateY(0);
+}
+
+.overlayTitle {
+  color: #fff;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  font-family: var(--font-outfit);
+}
+
+.techStack {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+
+.techTag {
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  font-size: 0.75rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: 100px;
+  backdrop-filter: blur(4px);
+}
+
+.githubLink {
+  color: #fff; /* White icon */
+  font-size: 1.5rem;
+  opacity: 0.8;
+  transition: opacity 0.2s, transform 0.2s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.1);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.githubLink:hover {
+  opacity: 1;
+  transform: scale(1.1);
+  background: rgba(255, 255, 255, 0.2);
 }
 
 .projectInfo {
-  padding: 0 0.5rem;
+  padding: 0;
+  text-align: left;
+  flex: 1;
 }
 
 .projectTitle {
@@ -184,17 +276,14 @@
 /* RESPONSIVE */
 @media (max-width: 1024px) {
   .workHeader {
-    grid-template-columns: 1fr;
-    gap: 2rem;
+    flex-direction: column;
+    gap: 3rem;
     padding: 0 2rem;
   }
   
   .sideLink {
     flex-direction: row;
-    align-items: center;
-    position: static;
-    margin-top: 2rem;
-    justify-content: flex-start;
+    margin-top: 0;
   }
 
   .sideLink:hover .arrowCircle {
