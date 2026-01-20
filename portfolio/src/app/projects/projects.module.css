@@ -1,0 +1,378 @@
+/* Full Screen Overlay to Hide Footer */
+.container {
+  position: fixed;
+  inset: 0; /* Covers entire viewport */
+  z-index: 50; /* On top of global layout */
+  background: var(--bg-primary);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* Dynamic Background Layer */
+.backgroundLayer {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  opacity: 0.15;
+  transition: background 1.5s ease;
+  filter: blur(80px); /* Soft diffuse glow */
+}
+
+.pageTitle {
+  position: absolute;
+  top: 5rem; /* Moved down */
+  left: 0;
+  right: 0;
+  font-size: 1rem;
+  font-family: var(--font-outfit);
+  color: var(--text-secondary);
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  z-index: 20;
+}
+
+.domainToggle {
+  position: absolute;
+  top: 8.5rem; /* Moved down significantly */
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 1rem;
+  z-index: 30;
+}
+
+/* ... existing domainBtn styles ... */
+.domainBtn {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--text-secondary);
+  padding: 0.6rem 1.5rem;
+  border-radius: 100px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: var(--font-outfit);
+  backdrop-filter: blur(4px);
+}
+
+.domainBtn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+}
+
+.domainBtnActive {
+  background: #fff;
+  color: #000;
+  border-color: #fff;
+}
+
+.stackWrapper {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  perspective: 1500px; 
+  z-index: 10;
+  padding-top: 6rem; /* Increase padding to push card down */
+}
+
+.card {
+  position: absolute;
+  width: 42vw; /* Reduced from 50vw */
+  max-width: 700px; /* Reduced from 850px */
+  max-height: 45vh; /* Reduced from 55vh */
+  aspect-ratio: 1.35; 
+  background: #0F0F0F;
+  border-radius: 20px; /* Slightly tighter radius for smaller card */
+  overflow: hidden;
+  box-shadow: 0 40px 100px -20px rgba(0, 0, 0, 0.5);
+  
+  /* Extremely Smooth High-End Transition */
+  transition: 
+    transform 1.2s cubic-bezier(0.19, 1, 0.22, 1),
+    opacity 1s ease,
+    filter 1s ease;
+    
+  will-change: transform, opacity, filter;
+  transform-style: preserve-3d;
+}
+
+/* --- 3D STATES --- */
+
+/* 1. PAST: Slides out to the Left */
+.past {
+  transform: translate3d(-120%, 0, 0) rotateY(10deg);
+  opacity: 0;
+  filter: blur(10px);
+  pointer-events: none;
+}
+
+/* 2. ACTIVE: Center Stage */
+.active {
+  transform: translate3d(0, 0, 0);
+  opacity: 1;
+  filter: blur(0px);
+  z-index: 10;
+  pointer-events: auto;
+}
+
+/* 3. UPCOMING (Next): Right and Deep */
+.upcoming {
+  /* Only target the immediate next one for visibility */
+  transform: translate3d(50%, 0, -400px); /* Right and Back */
+  opacity: 0.0; /* Start invisible, JS handles specificity if needed, but CSS handles generic */
+  pointer-events: none;
+}
+
+/* Specific handling for the immediate next card (offset 1) */
+.upcoming[style*="--offset: 1"] {
+  transform: translate3d(20%, 0, -200px); /* Minimal offset, but hidden */
+  opacity: 0; /* Hidden as per request "only 1 frame visible" */
+  filter: blur(10px);
+  z-index: 5;
+  display: block;
+}
+
+/* Hide further cards */
+.upcoming[style*="--offset: 2"],
+.upcoming[style*="--offset: 3"] {
+  opacity: 0;
+  pointer-events: none;
+}
+
+
+/* Layout Content */
+.cardInner {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  text-decoration: none;
+  color: inherit;
+}
+
+.cardPreview {
+  flex: 1.5;
+  height: 100%;
+  position: relative;
+  transition: filter 0.5s ease;
+  overflow: hidden; /* Ensure overlay stays inside */
+}
+
+/* Hover Overlay Styles (Matches Home Page) */
+.projectOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7); /* Dark overlay */
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 1.5rem;
+  backdrop-filter: blur(4px);
+  z-index: 5;
+}
+
+/* CHANGED: Only show overlay when hovering the PREVIEW (Image), not the whole card */
+.cardPreview:hover .projectOverlay {
+  opacity: 1;
+}
+
+.overlayContent {
+  transform: translateY(20px);
+  transition: transform 0.3s ease;
+}
+
+.cardPreview:hover .overlayContent {
+  transform: translateY(0);
+}
+
+.overlayTitle {
+  color: #fff;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  font-family: var(--font-outfit);
+}
+
+.techStack {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+
+.techTag {
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  font-size: 0.75rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: 100px;
+  backdrop-filter: blur(4px);
+}
+
+.githubLink {
+  color: #fff;
+  font-size: 1.5rem;
+  opacity: 0.8;
+  transition: opacity 0.2s, transform 0.2s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.1);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.githubLink:hover {
+  opacity: 1;
+  transform: scale(1.1);
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.cardContent {
+  flex: 1;
+  padding: 2rem; /* Reduced from 4rem */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: rgba(20, 20, 20, 0.6);
+  backdrop-filter: blur(20px);
+}
+
+.cardMeta {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 0.75rem; /* Reduced from 1.5rem */
+  font-size: 0.75rem; /* Reduced from 0.8rem */
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.projectTitle {
+  font-size: 2rem; /* Reduced from 3rem */
+  font-family: var(--font-outfit);
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+  line-height: 1.1;
+}
+
+.projectDesc {
+  font-size: 0.95rem; /* Reduced from 1.1rem */
+  line-height: 1.5;
+  color: var(--text-secondary);
+  margin-bottom: 1.5rem; /* Reduced from 2rem */
+  max-width: 100%;
+  
+  /* Truncate if still too long */
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.cardAction {
+  margin-top: auto;
+  font-weight: 500;
+  color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.1);
+  padding: 0.6rem 1.2rem; /* Reduced padding */
+  border-radius: 100px;
+  width: fit-content;
+  font-size: 0.85rem;
+  transition: background 0.3s ease;
+}
+
+.active .cardAction:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* Controls - Bottom Pill */
+.controls {
+  position: absolute;
+  bottom: 3rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  z-index: 30;
+}
+
+.navBtn {
+  background: #fff; /* White pill */
+  color: #000;
+  border: none;
+  padding: 0.8rem 2rem;
+  border-radius: 100px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  font-family: var(--font-outfit);
+}
+
+.navBtn:disabled {
+  opacity: 0.5;
+  cursor: allowed; /* Let them try */
+  background: #333;
+  color: #888;
+}
+
+.navBtn:hover:not(:disabled) {
+  transform: scale(1.05);
+  box-shadow: 0 8px 30px rgba(255, 255, 255, 0.3);
+}
+
+/* Secondary nav button (Prev) can be smaller/different */
+.navBtn.prev {
+  padding: 0.8rem;
+  width: 50px;
+  height: 50px;
+  justify-content: center;
+}
+
+.pagination {
+  display: none; /* Clean look */
+}
+
+@media (max-width: 768px) {
+  .card {
+    width: 90%;
+    flex-direction: column;
+    max-height: 70vh;
+  }
+  
+  .cardInner {
+    flex-direction: column;
+  }
+  
+  .cardContent {
+    padding: 1.5rem;
+  }
+  
+  .projectTitle {
+    font-size: 2rem;
+  }
+  
+  .upcoming[style*="--offset: 1"] {
+    transform: translate3d(20%, 0, -200px); /* Less shift on mobile */
+  }
+}
