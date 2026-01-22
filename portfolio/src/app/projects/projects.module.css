@@ -331,7 +331,7 @@
 
 .navBtn:disabled {
   opacity: 0.5;
-  cursor: allowed; /* Let them try */
+  cursor: not-allowed;
   background: #333;
   color: #888;
 }

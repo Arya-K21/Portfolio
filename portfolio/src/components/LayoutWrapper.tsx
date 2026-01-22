@@ -36,12 +36,12 @@ function ContentWrapper({ children }: { children: React.ReactNode }) {
 
   return (
     <motion.div
-      initial={{ y: 200, opacity: 0 }} /* Deeper rush from 200px */
-      animate={!loading ? { y: 0, opacity: 1 } : {}}
+      initial={{ opacity: 0 }} /* No movement, just fade */
+      animate={!loading ? { opacity: 1 } : {}}
       transition={{ 
-        duration: 1.2, 
-        ease: [0.25, 1, 0.5, 1],
-        delay: 0.2 // Wait for preloader to visually clear a bit
+        duration: 1.0, 
+        ease: "easeOut",
+        delay: 0.1 // Quick fade in
       }}
       style={{ minHeight: "100vh" }} // Ensure it takes full height
     >

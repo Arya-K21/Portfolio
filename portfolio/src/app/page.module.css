@@ -13,6 +13,48 @@
   padding-bottom: 0;
 }
 
+/* Fixed Glass Background that expands on scroll - Clean Aesthetic */
+.fixedGlassBoard {
+  position: absolute; /* Changed from fixed to absolute so it sits IN the section */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  margin-top: 25px; /* Nudge down slightly */
+  
+  /* Original subtle glass effect */
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+  
+  /* Smaller Board Dimensions */
+  width: 90%;
+  max-width: 1400px;
+  height: 80vh; /* Comfortably smaller */
+  border-radius: 12px; /* Squared Frame */
+  
+  /* Soft shadow & inner highlight */
+  box-shadow: 
+    0 40px 80px -20px rgba(0,0,0,0.5),
+    0 0 0 1px rgba(255,255,255,0.02) inset;
+  
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Hero Content - sits above the glass */
+.heroContent {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 3rem 2rem;
+  min-height: 100vh;
+}
+
 /* The physical glass pane */
 .glassBoard {
   width: 90%;
